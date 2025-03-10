@@ -1,6 +1,13 @@
-/* body{
-  background-color: bisque;
-} */
+body{
+  font-family: 'plus Jakarta Sans', sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container{
+  flex: 1;
+}
 
 /* navbar */
 .navbar{
@@ -9,7 +16,7 @@
 }
 
 .fa-building{
-  color:rgb(215, 57, 57);
+  color:#d73939;
   font-size: 2rem;
 }
 
@@ -51,4 +58,65 @@
   justify-content: center;
 
 }
-/* i have commited */
+
+/* cards styling */
+.card{
+  border: none !important;
+  margin-bottom: 2rem;
+}
+
+.card-img-top{
+  border-radius: 1rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.card-body{
+  padding: 0 !important;
+}
+
+.card-text p{
+  font-weight: 400;
+  color: #222222;
+}
+
+.listing-link{
+  text-decoration: none;
+}
+
+/* card effects */
+.card-img-overlay{
+  opacity: 0;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+/* new.ejs styling */
+.add-btn{
+  background-color: #d73939 !important;
+  border: none !important;
+}
+
+/* edit.ejs styling */
+.edit-btn{
+  background-color: #d73939 !important;
+  border: none !important;
+}
+
+/* show.ejs styling */
+.show-img{
+  height: 30vh;
+  
+}
+
+.btns{
+  display: flex;
+}
+
+.show-card{
+  padding-left:0 ;
+  padding-right: 0;
+}
