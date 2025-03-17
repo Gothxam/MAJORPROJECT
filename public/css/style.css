@@ -90,13 +90,27 @@ body {
   background-color: #fe424d !important;
   border: none !important;
 }
+.add-btn:active{
+  transform: scale(0.95); 
+  background-color: #85262c !important;
+}
 
 /* 45.6. Edit page */
 .edit-btn {
   background-color: #fe424d !important;
   border: none !important;
 }
+.edit-btn:active{
+  transform: scale(0.95); 
+  background-color: #85262c !important;
+}
 
+/* delete btn  */
+.delete-btn:active{
+    transform: scale(0.95); 
+    background-color: #000000 !important;
+  
+}
 /* 45.7. Show Page */
 .show-img {
   height: 30vh;
