@@ -8,8 +8,7 @@ const ejsMate = require("ejs-mate"); //requiring ejs-mate for building tamplets
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js"); //schema validation
-const Review =require("./models/review.js");
-
+const Review = require("./models/review.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/easybnb";
 
@@ -57,7 +56,6 @@ const validateReview = (req, res, next) => {
     next();
   }
 };
-
 
 //index route
 app.get(
@@ -127,24 +125,31 @@ app.delete(
 );
 
 //reviews route
-app.post("/listings/:id/reviews",validateReview, wrapAsync(async (req,res)=>{
-    let listing= await Listing.findById(req.params.id);
+app.post(
+  "/listings/:id/reviews",
+  validateReview,
+  wrapAsync(async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
     listing.reviews.push(newReview);
     await newReview.save();
     await listing.save();
 
-    res.redirect(`/listings/${listing._id}`)
-}));
+    res.redirect(`/listings/${listing._id}`);
+  })
+);
 // review delete route
-app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
-  let {id, reviewId}=req.params;
+app.delete(
+  "/listings/:id/reviews/:reviewId",
+  wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
 
-  await Listing.findByIdAndUpdate(id, {$pull:{reviews:reviewId}})
-  await Review.findByIdAndDelete(reviewId)
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
 
-  res.redirect(`/listings/${id}`)
-}))
+    res.redirect(`/listings/${id}`);
+  })
+);
 // app.get("/testListing", async (req, res)=>{
 //   let sampleListing=new Listing({
 //     title :"my new villa",
@@ -173,4 +178,6 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
   console.log("server is listning to port 8080");
 });
-
+//im nikhil
+// testing
+console.log("testing");
