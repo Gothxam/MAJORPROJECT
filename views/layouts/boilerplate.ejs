@@ -20,7 +20,10 @@
   <!-- including nevbar -->
    <%- include("../includes/nevbar.ejs")%>
 
-  <div class="container"><%- body %></div>
+  <div class="container">
+    <%- include("../includes/flash.ejs")%>
+
+    <%- body %></div>
 
    <!-- including footer -->
    <%- include("../includes/footer.ejs")%> 
