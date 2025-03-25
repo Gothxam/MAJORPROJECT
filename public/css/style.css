@@ -1,6 +1,6 @@
 /* 45.4 */
-body {  
-  font-family: "Plus Jakarta Sans", sans-serif !important;    /*google fonts style added*/
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important; /*google fonts style added*/
   /* 45.5. new page */
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@ body {
 }
 /* 45.5. styling new listing */
 .container {
-  flex: 1;  /*this sets how a flex item will grow or shrink to fit the space available in its flex container.*/
+  flex: 1; /*this sets how a flex item will grow or shrink to fit the space available in its flex container.*/
 } /* + line 86*/
 
 /* 45.2 navbar, custom styling */
@@ -16,12 +16,13 @@ body {
   height: 5rem;
   background-color: white;
 }
-.fa-building {   /*website logo ki properties set*/
+.fa-building {
+  /*website logo ki properties set*/
   color: #fe424d;
   font-size: 2rem;
 }
 .nav-link {
-  color: #222222 !important;  /* settled custom styling > bootstrap */
+  color: #222222 !important; /* settled custom styling > bootstrap */
 }
 
 /* 45.3 footer, custom styling */
@@ -32,7 +33,9 @@ body {
 .f-info-links a:hover {
   text-decoration: underline;
 }
-.f-info-links, .f-info-socials, .f-info-brand {
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
   width: 100%;
   display: flex;
   align-items: center;
@@ -90,8 +93,8 @@ body {
   background-color: #fe424d !important;
   border: none !important;
 }
-.add-btn:active{
-  transform: scale(0.95); 
+.add-btn:active {
+  transform: scale(0.95);
   background-color: #85262c !important;
 }
 
@@ -100,16 +103,15 @@ body {
   background-color: #fe424d !important;
   border: none !important;
 }
-.edit-btn:active{
-  transform: scale(0.95); 
+.edit-btn:active {
+  transform: scale(0.95);
   background-color: #85262c !important;
 }
 
 /* delete btn  */
-.delete-btn:active{
-    transform: scale(0.95); 
-    background-color: #000000 !important;
-  
+.delete-btn:active {
+  transform: scale(0.95);
+  background-color: #000000 !important;
 }
 /* 45.7. Show Page */
 .show-img {
