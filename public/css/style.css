@@ -5,6 +5,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
 }
 /* 45.5. styling new listing */
 .container {
@@ -124,4 +125,12 @@ body {
 .show-card {
   padding-left: 0;
   padding-right: 0;
+}
+
+
+/* Map */
+#map{
+  height: 400px;
+  width: 80vh;
+  border-radius: 5px 5px 5px 5px;
 }
