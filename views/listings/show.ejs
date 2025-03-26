@@ -33,16 +33,16 @@
 <!-- Booking Form -->
  <div class="col-md-8 offset-3 mb-3">
   <hr>
-  <h3 class="mt-4">Reserve  </h3>
+  <h3 class="mt-4">Book Now </h3>
   <br>
   <h5>Select checkout date  </h5>
   <form action="/bookings/<%= listing._id %>/book" method="POST" class="row g-3 mt-3 f">
     <div class="col-md-6  ">
-      <label for="startDate" class="form-label">Start Date:</label>
+      <label for="startDate" class="form-label">Check-In Date:</label>
       <input type="date" id="startDate" name="startDate" class="form-control" min="<%= new Date().toISOString().split('T')[0] %>" required />
     </div>
     <div class="col-md-6">
-      <label for="endDate" class="form-label">End Date:</label>
+      <label for="endDate" class="form-label">Check-Out Date:</label>
       <input type="date" id="endDate" name="endDate" class="form-control" min="<%= new Date().toISOString().split('T')[0] %>" required />
     </div>
     <div class="col-12">

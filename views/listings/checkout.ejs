@@ -2,9 +2,9 @@
 <DIV class="col-9 offset-4 mb-3 mt-5 ">
   <DIV>
      <h1 >Checkout </h1>
-     <h3> <%= booking.listing.title %></h2>
-    <p>CHECK-IN : <%= new Date(booking.startDate).toDateString() %></p>
-    <p>CHECK-OUT : <%= new Date(booking.endDate).toDateString() %></p>
+     <h4> <%= booking.listing.title %></h4>
+    <p>Check-In Date : <%= new Date(booking.startDate).toDateString() %></p>
+    <p>Check-Out Date: <%= new Date(booking.endDate).toDateString() %></p>
     <p>Total Nights : <%= (new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24) %></p>
     <p>Total Price : &#8377;<%= booking.totalPrice.toLocaleString("en-IN") %></p>
   </div>
@@ -15,5 +15,5 @@
     <p>Email: <%= booking.user.email %></p>
   </div>
 
-  <a href="/listings" class="btn btn-secondary">Back to Listings</a>
+  <a href="/listings" class="btn btn-dark">Back to Listings</a>
 </DIV>
