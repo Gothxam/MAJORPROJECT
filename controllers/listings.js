@@ -5,8 +5,26 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken});
 
 //index route
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+  const { category, search } = req.query; // Extract 'search' and 'category' from query parameters
+  let query = {};
+
+  // Filter by category if provided
+  if (category && category !== "") {
+    query.category = category;
+  }
+
+  // Add search functionality
+  if (search && search.trim() !== "") {
+    query.title = { $regex: search, $options: "i" }; // Search by title (case-insensitive)
+  }
+
+  try {
+    const allListings = await Listing.find(query); // Fetch listings based on the query
+    res.render("listings/index.ejs", { allListings, query: req.query }); // Pass 'req.query' as 'query'
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 };
 
 //new route

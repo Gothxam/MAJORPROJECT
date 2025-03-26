@@ -39,16 +39,21 @@
       </div>
 
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
+        <div class="d-flex" role="search">
           <input
+            id="search-input"
             class="form-control me-2 search-inp"
             type="search"
             placeholder="Search destinations"
           />
-          <button class="btn search-btn" type="submit">
+          <button
+            id="search-button"
+            class="btn search-btn"
+            type="button"
+          >
             <i class="fa-solid fa-magnifying-glass"></i>Search
           </button>
-        </form>
+        </div>
       </div>
 
       <div class="navbar-nav ms-auto">
@@ -63,3 +68,25 @@
     </div>
   </div>
 </nav>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("search-input");
+    const searchButton = document.getElementById("search-button");
+
+    searchButton.addEventListener("click", () => {
+      const searchQuery = searchInput.value.trim(); // Get the search input value
+      if (searchQuery) {
+        // Redirect to the listings page with the search query as a parameter
+        window.location.href = `/listings?search=${encodeURIComponent(searchQuery)}`;
+      }
+    });
+
+    // Optional: Trigger search on pressing "Enter" in the input field
+    searchInput.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent default form submission behavior
+        searchButton.click(); // Trigger the search button click
+      }
+    });
+  });
+</script>

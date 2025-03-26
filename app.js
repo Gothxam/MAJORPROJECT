@@ -19,6 +19,9 @@ const listingRouter = require("./routes/listing.js"); //51.1. listing.js require
 const reviewRouter = require("./routes/review.js"); //51.2 review.js required
 const userRouter = require("./routes/user.js");
 
+// checkout
+const bookingsRoutes = require("./routes/bookings");
+
 const MONGO_URL = "mongodb://127.0.0.1:27017/easybnb";
 
 main()
@@ -72,6 +75,10 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next();
 });
+
+app.use(express.urlencoded({ extended: true })); // To parse form data
+app.use("/bookings", bookingsRoutes);
+
 
 // app.get("/demouser", async (req, res) => {
 //   let fakeUser = new User({

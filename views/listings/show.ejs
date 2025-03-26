@@ -12,6 +12,7 @@
       <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
       <div class="card-body">
         <p class="card-text">Owned by <b><i><%= listing.owner.username%></i></b> </p>
+        <p><strong>Category:</strong> <%= listing.category %></p>
         <p class="card-text"><%= listing.description %> </p>
         <p class="card-text">&#8377 <%= listing.price.toLocaleString("en-IN") %> </p>
         <p class="card-text"> <%= listing.country %></p>
@@ -29,6 +30,29 @@
       </form>
     </div>
     <% } %>
+<!-- Booking Form -->
+ <div class="col-md-8 offset-3 mb-3">
+  <hr>
+  <h3 class="mt-4">Reserve  </h3>
+  <br>
+  <h5>Select checkout date  </h5>
+  <form action="/bookings/<%= listing._id %>/book" method="POST" class="row g-3 mt-3 f">
+    <div class="col-md-6  ">
+      <label for="startDate" class="form-label">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" class="form-control" min="<%= new Date().toISOString().split('T')[0] %>" required />
+    </div>
+    <div class="col-md-6">
+      <label for="endDate" class="form-label">End Date:</label>
+      <input type="date" id="endDate" name="endDate" class="form-control" min="<%= new Date().toISOString().split('T')[0] %>" required />
+    </div>
+    <div class="col-12">
+      <button type="submit" class="book btn btn-primary">Book Now</button>
+      <a href="/listings" class="btn btn-dark ms-2">Back to Listings</a>
+    </div>
+  </form>
+ </div>
+
+    
 
     <!-- review from -->
     <div class="col-8 offset-3 mb-3">
@@ -65,7 +89,8 @@
       <% } %>
 
       <% if(listing.reviews.length >0){ %>
-      <div class="row">
+      <div class=" mt-4 row">
+        <hr>
         <p><b>All Reviews</b></p>
         <% for(review of listing.reviews){ %>
         <div class="card col-5 ms-3 mb-3">
@@ -86,6 +111,7 @@
       <% } %>
     </div>
       <div class="col-8 offset-3 mb-3">
+        <hr>
           <h3>Where you'll be</h3>
         <div id="map"></div>
       </div>

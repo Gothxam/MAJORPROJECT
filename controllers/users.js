@@ -31,9 +31,10 @@ module.exports.renderLoginForm = (req, res) => {
 };
 
 //user login
-module.exports.login = async (req, res) => {
-  req.flash("success", "Welcome back to EasyBnB!");
-  let redirectUrl = res.locals.redirectUrl || "/listings";
+module.exports.login = (req, res) => {
+  const redirectUrl = req.session.returnTo || "/listings"; // Redirect to the original URL or a default page
+  delete req.session.returnTo; // Clear the session variable
+  req.flash("success", "Welcome back!");
   res.redirect(redirectUrl);
 };
 

@@ -1,0 +1,19 @@
+<% layout("/layouts/boilerplate.ejs") %> 
+<DIV class="col-9 offset-4 mb-3 mt-5 ">
+  <DIV>
+     <h1 >Checkout </h1>
+     <h3> <%= booking.listing.title %></h2>
+    <p>CHECK-IN : <%= new Date(booking.startDate).toDateString() %></p>
+    <p>CHECK-OUT : <%= new Date(booking.endDate).toDateString() %></p>
+    <p>Total Nights : <%= (new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24) %></p>
+    <p>Total Price : &#8377;<%= booking.totalPrice.toLocaleString("en-IN") %></p>
+  </div>
+
+  <div >
+    <h3>Billing Information</h3>
+    <p>Name: <%= booking.user.username %></p> <!-- Use 'username' if that's the field in your User model -->
+    <p>Email: <%= booking.user.email %></p>
+  </div>
+
+  <a href="/listings" class="btn btn-secondary">Back to Listings</a>
+</DIV>

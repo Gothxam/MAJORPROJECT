@@ -133,3 +133,8 @@ body {
   width: 80vh;
   border-radius: 5px 5px 5px 5px;
 }
+
+.book{
+  background-color:#fe424d !important ;
+  border: none !important; 
+}
