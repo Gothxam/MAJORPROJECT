@@ -46,6 +46,7 @@ module.exports.showListing = async (req, res) => {
   if (!listing) {
     req.flash("error", " Listing you requested for doesn't exist !");
     res.redirect("/listings");
+    return;
   }
 
   console.log(listing);
@@ -54,22 +55,49 @@ module.exports.showListing = async (req, res) => {
 
 //create route
 module.exports.createListing = async (req, res, next) => {
-  let response = await geocodingClient
-  .forwardGeocode({
-    query: req.body.listing.location,
-    limit: 1,
-  })
-    .send();
+  // Try geocoding the provided location. If Mapbox rejects the token or the
+  // request fails for any reason, catch the error and continue — we still
+  // allow creating a listing, but without geometry.
+  response = null;
+  try {
+    response = await geocodingClient
+      .forwardGeocode({
+        query: req.body.listing.location,
+        limit: 1,
+      })
+      .send();
+  } catch (e) {
+    console.error("Mapbox geocoding failed:", e && e.message);
+    // Inform the user but continue — location will be saved without geometry
+    req.flash(
+      "error",
+      "Geocoding failed (Mapbox token may be invalid). The listing will be created without a map location."
+    );
+  }
 
-  let url = req.file.path;
-  let filename = req.file.filename;
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
-  newListing.image = { url, filename };
 
-  newListing.geometry =response.body.features[0].geometry;
+  // Attach uploaded image only if present
+  if (req.file) {
+    const url = req.file.path;
+    const filename = req.file.filename;
+    newListing.image = { url, filename };
+  }
 
-  let savedListing=await newListing.save();
+  // Set geometry only when geocoding returned a valid feature
+  if (
+    response &&
+    response.body &&
+    Array.isArray(response.body.features) &&
+    response.body.features.length > 0
+  ) {
+    newListing.geometry = response.body.features[0].geometry;
+  } else {
+    newListing.geometry = null;
+  }
+
+  let savedListing = await newListing.save();
   console.log(savedListing);
   
   req.flash("success", "new Listing created !");
@@ -83,22 +111,31 @@ module.exports.renderEditForm = async (req, res) => {
   if (!listing) {
     req.flash("error", " Listing you requested for doesn't exist !");
     res.redirect("/listings");
+    return;
   }
-
-  let originalImageUrl =listing.image.url;
-  originalImageUrl = originalImageUrl.replace("/upload","/upload/w_250");
-  res.render("listings/edit.ejs", { listing,originalImageUrl });
+  // Guard: image may be missing
+  let originalImageUrl = null;
+  if (listing.image && listing.image.url) {
+    originalImageUrl = listing.image.url.replace("/upload", "/upload/w_250");
+  }
+  res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
 //update route
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  
-  if(typeof req.file !=="undefined"){
+
+  // If listing wasn't found, bail out
+  if (!listing) {
+    req.flash("error", " Listing you requested for doesn't exist !");
+    return res.redirect("/listings");
+  }
+
+  if (req.file) {
     let url = req.file.path;
     let filename = req.file.filename;
-    listing.image= { url, filename };
+    listing.image = { url, filename };
     await listing.save();
   }
   req.flash("success", "Listing Updated !");
